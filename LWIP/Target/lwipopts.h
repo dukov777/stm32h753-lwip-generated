@@ -117,6 +117,11 @@
 /* USER CODE BEGIN 1 */
 #define CHECKSUM_GEN_ICMP               1
 
+ extern int __LWIP_RAM_HEAP_START__;
+
+ #undef LWIP_RAM_HEAP_POINTER
+ #define LWIP_RAM_HEAP_POINTER &__LWIP_RAM_HEAP_START__
+
 /* USER CODE END 1 */
 
 #ifdef __cplusplus

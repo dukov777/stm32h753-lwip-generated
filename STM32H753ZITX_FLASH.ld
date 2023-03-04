@@ -175,7 +175,12 @@ SECTIONS
     *(.TxDecripSection)
     
     . = ABSOLUTE(0x30000400);
+    __LWIP_RX_POOL_START__ = .;
     *(.Rx_PoolSection) 
+    . = ABSOLUTE(0x30008000);
+    __LWIP_RAM_HEAP_START__ = .;
+    . = ABSOLUTE(0x30010400);
+    __LWIP_RAM_HEAP_END__ = .;
   } >RAM_D2 AT> FLASH
 
   /* Remove information from the standard libraries */
