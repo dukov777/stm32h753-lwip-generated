@@ -57,6 +57,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define __LWIP_RX_TX_DESCRIPTORS_START__ 0x30000000
+#define __LWIP_POOL_AND_HEAP_START__ 0x30000400
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC
 #define LD1_Pin GPIO_PIN_0

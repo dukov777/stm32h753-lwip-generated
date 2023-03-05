@@ -56,7 +56,7 @@
 /*----- Default Value for MEM_SIZE: 1600 ---*/
 #define MEM_SIZE 14000
 /*----- Default Value for H7 devices: 0x30044000 -----*/
-#define LWIP_RAM_HEAP_POINTER 0x30008000
+#define LWIP_RAM_HEAP_POINTER 0x30044000
 /*----- Value supported for H7 devices: 1 -----*/
 #define LWIP_SUPPORT_CUSTOM_PBUF 1
 /*----- Value in opt.h for LWIP_ETHERNET: LWIP_ARP || PPPOE_SUPPORT -*/
@@ -117,10 +117,17 @@
 /* USER CODE BEGIN 1 */
 #define CHECKSUM_GEN_ICMP               1
 
- extern int __LWIP_RAM_HEAP_START__;
+ extern int _LWIP_RAM_HEAP_START_;
+ extern int _LWIP_RX_POOL_AND_HEAP_START_;
+  extern int _LWIP_DESCRIPTORS_START_;
 
  #undef LWIP_RAM_HEAP_POINTER
- #define LWIP_RAM_HEAP_POINTER &__LWIP_RAM_HEAP_START__
+ #define LWIP_RAM_HEAP_POINTER  (void*)&_LWIP_RAM_HEAP_START_
+
+#undef __LWIP_RX_TX_DESCRIPTORS_START__
+#define __LWIP_RX_TX_DESCRIPTORS_START__ (uint32_t)&_LWIP_DESCRIPTORS_START_
+#undef __LWIP_POOL_AND_HEAP_START__
+#define __LWIP_POOL_AND_HEAP_START__ (uint32_t)&_LWIP_RX_POOL_AND_HEAP_START_
 
 /* USER CODE END 1 */
 

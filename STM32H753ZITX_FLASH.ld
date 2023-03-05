@@ -40,6 +40,22 @@ _estack = ORIGIN(RAM_D1) + LENGTH(RAM_D1);    /* end of RAM */
 _Min_Heap_Size = 0x200;      /* required amount of heap  */
 _Min_Stack_Size = 0x400; /* required amount of stack */
 
+_LWIP_DESCRIPTORS_SIZE_ = 0x400;
+_LWIP_DESCRIPTORS_START_ = 0x30000000;
+
+_LWIP_RX_DESCRIPTOR_SIZE = 0x200;
+_LWIP_TX_DESCRIPTORS_SIZE = 0x200;
+
+_LWIP_RX_DESCRIPTOR_START_ = _LWIP_DESCRIPTORS_START_;
+_LWIP_TX_DESCRIPTOR_START_ = _LWIP_RX_DESCRIPTOR_START_ + _LWIP_RX_DESCRIPTOR_SIZE;
+
+_LWIP_RX_POOL_AND_HEAP_START_ = _LWIP_DESCRIPTORS_START_ + _LWIP_DESCRIPTORS_SIZE_;
+
+_LWIP_POOL_POOL_SIZE_ = 0x4000;
+_LWIP_RAM_HEAP_SIZE_ = 0x4000; 
+
+_LWIP_RAM_HEAP_START_ = _LWIP_RX_POOL_AND_HEAP_START_ + _LWIP_POOL_POOL_SIZE_;
+
 /* Specify the memory areas */
 MEMORY
 {
@@ -168,19 +184,15 @@ SECTIONS
   ** https://community.st.com/s/article/FAQ-Ethernet-not-working-on-STM32H7x3 
   */
   .lwip_sec (NOLOAD) : {
-    . = ABSOLUTE(0x30000000);
+    . = ABSOLUTE(_LWIP_DESCRIPTORS_START_);
     *(.RxDecripSection) 
     
-    . = ABSOLUTE(0x30000200);
+    . = ABSOLUTE(_LWIP_TX_DESCRIPTOR_START_);
     *(.TxDecripSection)
     
-    . = ABSOLUTE(0x30000400);
-    __LWIP_RX_POOL_START__ = .;
+    . = ABSOLUTE(_LWIP_RX_POOL_AND_HEAP_START_);
     *(.Rx_PoolSection) 
-    . = ABSOLUTE(0x30008000);
-    __LWIP_RAM_HEAP_START__ = .;
-    . = ABSOLUTE(0x30010400);
-    __LWIP_RAM_HEAP_END__ = .;
+    . = . + _LWIP_RAM_HEAP_SIZE_;
   } >RAM_D2 AT> FLASH
 
   /* Remove information from the standard libraries */

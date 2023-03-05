@@ -92,6 +92,13 @@ typedef struct
   uint8_t buff[(ETH_RX_BUFFER_SIZE + 31) & ~31] __ALIGNED(32);
 } RxBuff_t;
 
+/* Memory Pool Declaration */
+#define ETH_RX_BUFFER_CNT             12U
+LWIP_MEMPOOL_DECLARE(RX_POOL, ETH_RX_BUFFER_CNT, sizeof(RxBuff_t), "Zero-copy RX PBUF pool");
+
+/* Variable Definitions */
+static uint8_t RxAllocStatus;
+
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
 
 #pragma location=0x30040000
@@ -110,10 +117,8 @@ ETH_DMADescTypeDef DMARxDscrTab[ETH_RX_DESC_CNT] __attribute__((section(".RxDecr
 ETH_DMADescTypeDef DMATxDscrTab[ETH_TX_DESC_CNT] __attribute__((section(".TxDecripSection")));   /* Ethernet Tx DMA Descriptors */
 
 #endif
-/* Memory Pool Declaration */
-#define ETH_RX_BUFFER_CNT             12U
-LWIP_MEMPOOL_DECLARE(RX_POOL, ETH_RX_BUFFER_CNT, sizeof(RxBuff_t), "Zero-copy RX PBUF pool");
 
+/* USER CODE BEGIN 2 */
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
 #pragma location = 0x30000400
 extern u8_t memp_memory_RX_POOL_base[];
@@ -125,11 +130,6 @@ __attribute__((section(".Rx_PoolSection"))) extern u8_t memp_memory_RX_POOL_base
 __attribute__((section(".Rx_PoolSection")))     extern u8_t memp_memory_RX_POOL_base[];
 
 #endif
-
-/* Variable Definitions */
-static uint8_t RxAllocStatus;
-
-/* USER CODE BEGIN 2 */
 
 /* USER CODE END 2 */
 
@@ -521,7 +521,7 @@ err_t ethernetif_init(struct netif *netif)
    * The last argument should be replaced with your link speed, in units
    * of bits per second.
    */
-//  MIB2_INIT_NETIF(netif, snmp_ifType_ethernet_csmacd, LINK_SPEED_OF_YOUR_NETIF_IN_BPS);
+  // MIB2_INIT_NETIF(netif, snmp_ifType_ethernet_csmacd, LINK_SPEED_OF_YOUR_NETIF_IN_BPS);
 
   netif->name[0] = IFNAME0;
   netif->name[1] = IFNAME1;
