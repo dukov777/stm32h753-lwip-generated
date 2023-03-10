@@ -120,13 +120,13 @@ void StartDefaultTask(void *argument)
   /* init code for LWIP */
   MX_LWIP_Init();
   /* USER CODE BEGIN StartDefaultTask */
-	ip4_addr_t ipaddr;
-
-	IP_ADDR4(&ipaddr, 192, 168, 69, 10);
-	udp_echoserver_init(&ipaddr);
-
-	IP_ADDR4(&ipaddr, 192, 168, 70, 10);
-	udp_echoserver_init(&ipaddr);
+//	ip4_addr_t ipaddr;
+//
+//	IP_ADDR4(&ipaddr, 192, 168, 69, 10);
+//	udp_echoserver_init(&ipaddr);
+//
+//	IP_ADDR4(&ipaddr, 192, 168, 70, 10);
+//	udp_echoserver_init(&ipaddr);
 
   /* Infinite loop */
   for(;;)

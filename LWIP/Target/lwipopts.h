@@ -44,7 +44,7 @@
 /* Temporary workaround to avoid conflict on errno defined in STM32CubeIDE and lwip sys_arch.c errno */
 #undef LWIP_PROVIDE_ERRNO
 /*----- CHECKSUM_BY_HARDWARE enabled -----*/
-#define CHECKSUM_BY_HARDWARE 1
+#define CHECKSUM_BY_HARDWARE 0
 /*-----------------------------------------------------------------------------*/
 
 /* LwIP Stack Parameters (modified compared to initialization value in opt.h) -*/
@@ -97,25 +97,50 @@
 #define RECV_BUFSIZE_DEFAULT 2000000000
 /*----- Value in opt.h for LWIP_STATS: 1 -----*/
 #define LWIP_STATS 0
-/*----- Value in opt.h for CHECKSUM_GEN_IP: 1 -----*/
-#define CHECKSUM_GEN_IP 0
-/*----- Value in opt.h for CHECKSUM_GEN_UDP: 1 -----*/
-#define CHECKSUM_GEN_UDP 0
-/*----- Value in opt.h for CHECKSUM_GEN_TCP: 1 -----*/
-#define CHECKSUM_GEN_TCP 0
-/*----- Value in opt.h for CHECKSUM_GEN_ICMP6: 1 -----*/
-#define CHECKSUM_GEN_ICMP6 0
-/*----- Value in opt.h for CHECKSUM_CHECK_IP: 1 -----*/
-#define CHECKSUM_CHECK_IP 0
-/*----- Value in opt.h for CHECKSUM_CHECK_UDP: 1 -----*/
-#define CHECKSUM_CHECK_UDP 0
-/*----- Value in opt.h for CHECKSUM_CHECK_TCP: 1 -----*/
-#define CHECKSUM_CHECK_TCP 0
-/*----- Value in opt.h for CHECKSUM_CHECK_ICMP6: 1 -----*/
-#define CHECKSUM_CHECK_ICMP6 0
 /*-----------------------------------------------------------------------------*/
 /* USER CODE BEGIN 1 */
-#define CHECKSUM_GEN_ICMP               1
+
+ /*----- Value in opt.h for CHECKSUM_GEN_IP: 1 -----*/
+ #undef CHECKSUM_GEN_IP
+ /*----- Value in opt.h for CHECKSUM_GEN_UDP: 1 -----*/
+#undef CHECKSUM_GEN_UDP
+ /*----- Value in opt.h for CHECKSUM_GEN_TCP: 1 -----*/
+#undef CHECKSUM_GEN_TCP
+ /*----- Value in opt.h for CHECKSUM_GEN_ICMP6: 1 -----*/
+#undef CHECKSUM_GEN_ICMP6
+ /*----- Value in opt.h for CHECKSUM_CHECK_IP: 1 -----*/
+#undef CHECKSUM_CHECK_IP
+ /*----- Value in opt.h for CHECKSUM_CHECK_UDP: 1 -----*/
+#undef CHECKSUM_CHECK_UDP
+ /*----- Value in opt.h for CHECKSUM_CHECK_TCP: 1 -----*/
+#undef CHECKSUM_CHECK_TCP
+ /*----- Value in opt.h for CHECKSUM_CHECK_ICMP6: 1 -----*/
+#undef CHECKSUM_CHECK_ICMP6
+
+#if CHECKSUM_BY_HARDWARE == 1
+  /* CHECKSUM_GEN_IP==0: Generate checksums by hardware for outgoing IP packets.*/
+  #define CHECKSUM_GEN_IP                 0
+  /* CHECKSUM_GEN_UDP==0: Generate checksums by hardware for outgoing UDP packets.*/
+  #define CHECKSUM_GEN_UDP                0
+  /* CHECKSUM_GEN_TCP==0: Generate checksums by hardware for outgoing TCP packets.*/
+  #define CHECKSUM_GEN_TCP                0
+  /* CHECKSUM_CHECK_IP==0: Check checksums by hardware for incoming IP packets.*/
+  #define CHECKSUM_CHECK_IP               0
+  /* CHECKSUM_CHECK_UDP==0: Check checksums by hardware for incoming UDP packets.*/
+  #define CHECKSUM_CHECK_UDP              0
+  /* CHECKSUM_CHECK_TCP==0: Check checksums by hardware for incoming TCP packets.*/
+  #define CHECKSUM_CHECK_TCP              0
+  /* CHECKSUM_GEN_ICMP==1: Check checksums by hardware for outgoing ICMP packets.*/
+  /* Hardware TCP/UDP checksum insertion not supported when packet is an IPv4 fragment */
+  #define CHECKSUM_GEN_ICMP               1
+  /* CHECKSUM_CHECK_ICMP==0: Check checksums by hardware for incoming ICMP packets.*/
+  #define CHECKSUM_CHECK_ICMP             0
+
+#else
+// The default is a check and generate done in software!
+// see opt.h
+#endif
+
 
  extern int _LWIP_RAM_HEAP_START_;
  extern int _LWIP_RX_POOL_AND_HEAP_START_;
@@ -129,8 +154,8 @@
 #undef __LWIP_POOL_AND_HEAP_START__
 #define __LWIP_POOL_AND_HEAP_START__ (uint32_t)&_LWIP_RX_POOL_AND_HEAP_START_
 
-#undef LWIP_SINGLE_NETIF
-#define LWIP_SINGLE_NETIF	0
+//#undef LWIP_SINGLE_NETIF
+//#define LWIP_SINGLE_NETIF	0
 
 /* USER CODE END 1 */
 
