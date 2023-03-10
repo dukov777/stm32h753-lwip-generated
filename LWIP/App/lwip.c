@@ -29,6 +29,7 @@
 #include <string.h>
 
 /* USER CODE BEGIN 0 */
+#include "slipif.h"
 
 /* USER CODE END 0 */
 /* Private function prototypes -----------------------------------------------*/
@@ -54,6 +55,7 @@ osThreadAttr_t attributes;
 /* USER CODE END OS_THREAD_ATTR_CMSIS_RTOS_V2 */
 
 /* USER CODE BEGIN 2 */
+struct netif slipnetif;
 
 /* USER CODE END 2 */
 
@@ -118,6 +120,42 @@ void MX_LWIP_Init(void)
 
 /* USER CODE BEGIN 3 */
 
+  /* IP addresses initialization */
+  IP_ADDRESS[0] = 192;
+  IP_ADDRESS[1] = 168;
+  IP_ADDRESS[2] = 70;
+  IP_ADDRESS[3] = 10;
+  NETMASK_ADDRESS[0] = 255;
+  NETMASK_ADDRESS[1] = 255;
+  NETMASK_ADDRESS[2] = 255;
+  NETMASK_ADDRESS[3] = 0;
+  GATEWAY_ADDRESS[0] = 192;
+  GATEWAY_ADDRESS[1] = 168;
+  GATEWAY_ADDRESS[2] = 70;
+  GATEWAY_ADDRESS[3] = 1;
+
+#if LWIP_DHCP
+  ip_addr_set_zero_ip4(&ipaddr);
+  ip_addr_set_zero_ip4(&netmask);
+  ip_addr_set_zero_ip4(&gw);
+#else
+  IP_ADDR4(&ipaddr,IP_ADDR0,IP_ADDR1,IP_ADDR2,IP_ADDR3);
+  IP_ADDR4(&netmask,NETMASK_ADDR0,NETMASK_ADDR1,NETMASK_ADDR2,NETMASK_ADDR3);
+  IP_ADDR4(&gw,GW_ADDR0,GW_ADDR1,GW_ADDR2,GW_ADDR3);
+#endif /* LWIP_DHCP */
+  struct netif* __netif = netif_add(&slipnetif, &ipaddr, &netmask, &gw, NULL, &slipif_init, &tcpip_input);
+  if(__netif != NULL)
+  {
+	  /* Registers the default network interface */
+//	  netif_set_default(&slipnetif);
+	  netif_set_up(&slipnetif);
+	  netif_set_link_up(&slipnetif);
+  }
+  else
+  {
+	  /* When the netif link is down this function must be called */
+	  netif_set_down(&slipnetif);
+  }
 /* USER CODE END 3 */
 }
 

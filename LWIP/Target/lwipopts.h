@@ -129,6 +129,9 @@
 #undef __LWIP_POOL_AND_HEAP_START__
 #define __LWIP_POOL_AND_HEAP_START__ (uint32_t)&_LWIP_RX_POOL_AND_HEAP_START_
 
+#undef LWIP_SINGLE_NETIF
+#define LWIP_SINGLE_NETIF	0
+
 /* USER CODE END 1 */
 
 #ifdef __cplusplus
