@@ -116,30 +116,20 @@
 /*-----------------------------------------------------------------------------*/
 /* USER CODE BEGIN 1 */
 
-#undef CHECKSUM_BY_HARDWARE
-
-#define CHECKSUM_BY_HARDWARE 0
-
-
 #undef SLIPIF_THREAD_PRIO
 #define SLIPIF_THREAD_PRIO TCPIP_THREAD_PRIO+1
 
- /*----- Value in opt.h for CHECKSUM_GEN_IP: 1 -----*/
- #undef CHECKSUM_GEN_IP
- /*----- Value in opt.h for CHECKSUM_GEN_UDP: 1 -----*/
+#undef CHECKSUM_GEN_IP
 #undef CHECKSUM_GEN_UDP
- /*----- Value in opt.h for CHECKSUM_GEN_TCP: 1 -----*/
 #undef CHECKSUM_GEN_TCP
- /*----- Value in opt.h for CHECKSUM_GEN_ICMP6: 1 -----*/
 #undef CHECKSUM_GEN_ICMP6
- /*----- Value in opt.h for CHECKSUM_CHECK_IP: 1 -----*/
 #undef CHECKSUM_CHECK_IP
- /*----- Value in opt.h for CHECKSUM_CHECK_UDP: 1 -----*/
 #undef CHECKSUM_CHECK_UDP
- /*----- Value in opt.h for CHECKSUM_CHECK_TCP: 1 -----*/
 #undef CHECKSUM_CHECK_TCP
- /*----- Value in opt.h for CHECKSUM_CHECK_ICMP6: 1 -----*/
 #undef CHECKSUM_CHECK_ICMP6
+
+#undef CHECKSUM_BY_HARDWARE
+#define CHECKSUM_BY_HARDWARE 0
 
 #if CHECKSUM_BY_HARDWARE == 1
   /* CHECKSUM_GEN_IP==0: Generate checksums by hardware for outgoing IP packets.*/
@@ -177,9 +167,6 @@
 #define __LWIP_RX_TX_DESCRIPTORS_START__ (uint32_t)&_LWIP_DESCRIPTORS_START_
 #undef __LWIP_POOL_AND_HEAP_START__
 #define __LWIP_POOL_AND_HEAP_START__ (uint32_t)&_LWIP_RX_POOL_AND_HEAP_START_
-
-//#undef LWIP_SINGLE_NETIF
-//#define LWIP_SINGLE_NETIF	0
 
 /* USER CODE END 1 */
 
