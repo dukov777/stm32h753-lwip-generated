@@ -100,6 +100,10 @@
 /*-----------------------------------------------------------------------------*/
 /* USER CODE BEGIN 1 */
 
+
+#undef SLIPIF_THREAD_PRIO
+#define SLIPIF_THREAD_PRIO TCPIP_THREAD_PRIO+1
+
  /*----- Value in opt.h for CHECKSUM_GEN_IP: 1 -----*/
  #undef CHECKSUM_GEN_IP
  /*----- Value in opt.h for CHECKSUM_GEN_UDP: 1 -----*/

@@ -90,6 +90,15 @@ u8_t sio_recv(sio_fd_t fd)
     return data;
 }
 
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+	  if (huart->ErrorCode | HAL_UART_ERROR_ORE)
+	  {
+	    /* Clear the Overrun flag before resuming the Rx transfer */
+	    __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_OREF);
+	  }
+}
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     _sio_message_t data_msg = { .event_type = Data };
