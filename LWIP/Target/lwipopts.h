@@ -116,6 +116,9 @@
 /*-----------------------------------------------------------------------------*/
 /* USER CODE BEGIN 1 */
 
+#undef LWIP_CHECKSUM_CTRL_PER_NETIF
+#define LWIP_CHECKSUM_CTRL_PER_NETIF    1
+
 #undef SLIPIF_THREAD_PRIO
 #define SLIPIF_THREAD_PRIO TCPIP_THREAD_PRIO+1
 
@@ -127,6 +130,7 @@
 #undef CHECKSUM_CHECK_UDP
 #undef CHECKSUM_CHECK_TCP
 #undef CHECKSUM_CHECK_ICMP6
+#undef CHECKSUM_GEN_ICMP
 
 #undef CHECKSUM_BY_HARDWARE
 #define CHECKSUM_BY_HARDWARE 0

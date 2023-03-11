@@ -523,6 +523,9 @@ err_t ethernetif_init(struct netif *netif)
    */
   // MIB2_INIT_NETIF(netif, snmp_ifType_ethernet_csmacd, LINK_SPEED_OF_YOUR_NETIF_IN_BPS);
 
+//  NETIF_SET_CHECKSUM_CTRL(netif, NETIF_CHECKSUM_GEN_ICMP | NETIF_CHECKSUM_CHECK_ICMP);
+  NETIF_SET_CHECKSUM_CTRL(netif, NETIF_CHECKSUM_DISABLE_ALL);
+
   netif->name[0] = IFNAME0;
   netif->name[1] = IFNAME1;
   /* We directly use etharp_output() here to save a function call.
