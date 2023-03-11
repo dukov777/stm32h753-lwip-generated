@@ -93,7 +93,7 @@ void MX_LWIP_Init(void)
   netif_add(&gnetif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &tcpip_input);
 
   /* Registers the default network interface */
-//  netif_set_default(&gnetif);
+  netif_set_default(&gnetif);
 
   if (netif_is_link_up(&gnetif))
   {

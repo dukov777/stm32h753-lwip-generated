@@ -44,7 +44,7 @@
 /* Temporary workaround to avoid conflict on errno defined in STM32CubeIDE and lwip sys_arch.c errno */
 #undef LWIP_PROVIDE_ERRNO
 /*----- CHECKSUM_BY_HARDWARE enabled -----*/
-#define CHECKSUM_BY_HARDWARE 0
+#define CHECKSUM_BY_HARDWARE 1
 /*-----------------------------------------------------------------------------*/
 
 /* LwIP Stack Parameters (modified compared to initialization value in opt.h) -*/
@@ -97,8 +97,28 @@
 #define RECV_BUFSIZE_DEFAULT 2000000000
 /*----- Value in opt.h for LWIP_STATS: 1 -----*/
 #define LWIP_STATS 0
+/*----- Value in opt.h for CHECKSUM_GEN_IP: 1 -----*/
+#define CHECKSUM_GEN_IP 0
+/*----- Value in opt.h for CHECKSUM_GEN_UDP: 1 -----*/
+#define CHECKSUM_GEN_UDP 0
+/*----- Value in opt.h for CHECKSUM_GEN_TCP: 1 -----*/
+#define CHECKSUM_GEN_TCP 0
+/*----- Value in opt.h for CHECKSUM_GEN_ICMP6: 1 -----*/
+#define CHECKSUM_GEN_ICMP6 0
+/*----- Value in opt.h for CHECKSUM_CHECK_IP: 1 -----*/
+#define CHECKSUM_CHECK_IP 0
+/*----- Value in opt.h for CHECKSUM_CHECK_UDP: 1 -----*/
+#define CHECKSUM_CHECK_UDP 0
+/*----- Value in opt.h for CHECKSUM_CHECK_TCP: 1 -----*/
+#define CHECKSUM_CHECK_TCP 0
+/*----- Value in opt.h for CHECKSUM_CHECK_ICMP6: 1 -----*/
+#define CHECKSUM_CHECK_ICMP6 0
 /*-----------------------------------------------------------------------------*/
 /* USER CODE BEGIN 1 */
+
+#undef CHECKSUM_BY_HARDWARE
+
+#define CHECKSUM_BY_HARDWARE 0
 
 
 #undef SLIPIF_THREAD_PRIO
