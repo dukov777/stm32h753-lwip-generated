@@ -210,7 +210,10 @@ static void low_level_init(struct netif *netif)
 {
   HAL_StatusTypeDef hal_eth_init_status = HAL_OK;
 /* USER CODE BEGIN OS_THREAD_ATTR_CMSIS_RTOS_V2 */
-  osThreadAttr_t attributes;
+    osThreadAttr_t attributes;
+
+    NETIF_SET_CHECKSUM_CTRL(netif, NETIF_CHECKSUM_DISABLE_ALL);
+
 /* USER CODE END OS_THREAD_ATTR_CMSIS_RTOS_V2 */
   uint32_t duplex, speed = 0;
   int32_t PHYLinkState = 0;
@@ -522,9 +525,6 @@ err_t ethernetif_init(struct netif *netif)
    * of bits per second.
    */
   // MIB2_INIT_NETIF(netif, snmp_ifType_ethernet_csmacd, LINK_SPEED_OF_YOUR_NETIF_IN_BPS);
-
-//  NETIF_SET_CHECKSUM_CTRL(netif, NETIF_CHECKSUM_GEN_ICMP | NETIF_CHECKSUM_CHECK_ICMP);
-  NETIF_SET_CHECKSUM_CTRL(netif, NETIF_CHECKSUM_DISABLE_ALL);
 
   netif->name[0] = IFNAME0;
   netif->name[1] = IFNAME1;
