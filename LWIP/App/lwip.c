@@ -131,28 +131,29 @@ void MX_LWIP_Init(void)
 /* USER CODE END H7_OS_THREAD_NEW_CMSIS_RTOS_V2 */
 
 /* USER CODE BEGIN 3 */
-
+	// Initialize SLIP interface
 #if LWIP_DHCP
-  ip_addr_set_zero_ip4(&ipaddr);
-  ip_addr_set_zero_ip4(&netmask);
-  ip_addr_set_zero_ip4(&gw);
+    ip_addr_set_zero_ip4(&ipaddr);
+    ip_addr_set_zero_ip4(&netmask);
+    ip_addr_set_zero_ip4(&gw);
 #else
-  IP_ADDR4(&ipaddr, SLIP_IP_ADDR0, SLIP_IP_ADDR1, SLIP_IP_ADDR2, SLIP_IP_ADDR3);
-  IP_ADDR4(&netmask, SLIP_NETMASK_ADDR0, SLIP_NETMASK_ADDR1, SLIP_NETMASK_ADDR2, SLIP_NETMASK_ADDR3);
-  IP_ADDR4(&gw, SLIP_GW_ADDR0, SLIP_GW_ADDR1, SLIP_GW_ADDR2, SLIP_GW_ADDR3);
+	IP_ADDR4(&ipaddr, SLIP_IP_ADDR0, SLIP_IP_ADDR1, SLIP_IP_ADDR2, SLIP_IP_ADDR3);
+	IP_ADDR4(&netmask, SLIP_NETMASK_ADDR0, SLIP_NETMASK_ADDR1, SLIP_NETMASK_ADDR2, SLIP_NETMASK_ADDR3);
+	IP_ADDR4(&gw, SLIP_GW_ADDR0, SLIP_GW_ADDR1, SLIP_GW_ADDR2, SLIP_GW_ADDR3);
 #endif /* LWIP_DHCP */
-  struct netif* __netif = netif_add(&slipnetif, &ipaddr, &netmask, &gw, NULL, &slipif_init, &tcpip_input);
-  if(__netif != NULL)
-  {
-	  /* Registers the default network interface */
-	  netif_set_up(&slipnetif);
-	  netif_set_link_up(&slipnetif);
-  }
-  else
-  {
-	  /* When the netif link is down this function must be called */
-	  netif_set_down(&slipnetif);
-  }
+
+	struct netif *__netif = netif_add(&slipnetif, &ipaddr, &netmask, &gw, NULL, &slipif_init, &tcpip_input);
+	if (__netif != NULL)
+	{
+		/* Registers SLIP network interface */
+		netif_set_up(&slipnetif);
+		netif_set_link_up(&slipnetif);
+	}
+	else
+	{
+		/* When the netif link is down this function must be called */
+		netif_set_down(&slipnetif);
+	}
 /* USER CODE END 3 */
 }
 
