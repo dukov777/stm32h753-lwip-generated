@@ -115,7 +115,8 @@
 #define CHECKSUM_CHECK_ICMP6 0
 /*-----------------------------------------------------------------------------*/
 /* USER CODE BEGIN 1 */
-#define CHECKSUM_GEN_ICMP               1
+#define CHECKSUM_GEN_ICMP               0
+#define CHECKSUM_CHECK_ICMP               0
 
  extern int _LWIP_RAM_HEAP_START_;
  extern int _LWIP_RX_POOL_AND_HEAP_START_;
