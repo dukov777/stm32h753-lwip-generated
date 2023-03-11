@@ -65,20 +65,32 @@ struct netif slipnetif;
 void MX_LWIP_Init(void)
 {
   /* IP addresses initialization */
-  IP_ADDRESS[0] = 192;
-  IP_ADDRESS[1] = 168;
-  IP_ADDRESS[2] = 69;
-  IP_ADDRESS[3] = 10;
-  NETMASK_ADDRESS[0] = 255;
-  NETMASK_ADDRESS[1] = 255;
-  NETMASK_ADDRESS[2] = 255;
+  IP_ADDRESS[0] = 0;
+  IP_ADDRESS[1] = 0;
+  IP_ADDRESS[2] = 0;
+  IP_ADDRESS[3] = 0;
+  NETMASK_ADDRESS[0] = 0;
+  NETMASK_ADDRESS[1] = 0;
+  NETMASK_ADDRESS[2] = 0;
   NETMASK_ADDRESS[3] = 0;
-  GATEWAY_ADDRESS[0] = 192;
-  GATEWAY_ADDRESS[1] = 168;
-  GATEWAY_ADDRESS[2] = 69;
-  GATEWAY_ADDRESS[3] = 1;
+  GATEWAY_ADDRESS[0] = 0;
+  GATEWAY_ADDRESS[1] = 0;
+  GATEWAY_ADDRESS[2] = 0;
+  GATEWAY_ADDRESS[3] = 0;
 
 /* USER CODE BEGIN IP_ADDRESSES */
+  IP_ADDRESS[0] = ETH_IP_ADDR0;
+  IP_ADDRESS[1] = ETH_IP_ADDR1;
+  IP_ADDRESS[2] = ETH_IP_ADDR2;
+  IP_ADDRESS[3] = ETH_IP_ADDR3;
+  NETMASK_ADDRESS[0] = ETH_NETMASK_ADDR0;
+  NETMASK_ADDRESS[1] = ETH_NETMASK_ADDR1;
+  NETMASK_ADDRESS[2] = ETH_NETMASK_ADDR2;
+  NETMASK_ADDRESS[3] = ETH_NETMASK_ADDR3;
+  GATEWAY_ADDRESS[0] = ETH_GW_ADDR0;
+  GATEWAY_ADDRESS[1] = ETH_GW_ADDR1;
+  GATEWAY_ADDRESS[2] = ETH_GW_ADDR2;
+  GATEWAY_ADDRESS[3] = ETH_GW_ADDR3;
 /* USER CODE END IP_ADDRESSES */
 
   /* Initilialize the LwIP stack with RTOS */
@@ -120,34 +132,19 @@ void MX_LWIP_Init(void)
 
 /* USER CODE BEGIN 3 */
 
-  /* IP addresses initialization */
-  IP_ADDRESS[0] = 192;
-  IP_ADDRESS[1] = 168;
-  IP_ADDRESS[2] = 70;
-  IP_ADDRESS[3] = 10;
-  NETMASK_ADDRESS[0] = 255;
-  NETMASK_ADDRESS[1] = 255;
-  NETMASK_ADDRESS[2] = 255;
-  NETMASK_ADDRESS[3] = 0;
-  GATEWAY_ADDRESS[0] = 192;
-  GATEWAY_ADDRESS[1] = 168;
-  GATEWAY_ADDRESS[2] = 70;
-  GATEWAY_ADDRESS[3] = 1;
-
 #if LWIP_DHCP
   ip_addr_set_zero_ip4(&ipaddr);
   ip_addr_set_zero_ip4(&netmask);
   ip_addr_set_zero_ip4(&gw);
 #else
-  IP_ADDR4(&ipaddr,IP_ADDR0,IP_ADDR1,IP_ADDR2,IP_ADDR3);
-  IP_ADDR4(&netmask,NETMASK_ADDR0,NETMASK_ADDR1,NETMASK_ADDR2,NETMASK_ADDR3);
-  IP_ADDR4(&gw,GW_ADDR0,GW_ADDR1,GW_ADDR2,GW_ADDR3);
+  IP_ADDR4(&ipaddr, SLIP_IP_ADDR0, SLIP_IP_ADDR1, SLIP_IP_ADDR2, SLIP_IP_ADDR3);
+  IP_ADDR4(&netmask, SLIP_NETMASK_ADDR0, SLIP_NETMASK_ADDR1, SLIP_NETMASK_ADDR2, SLIP_NETMASK_ADDR3);
+  IP_ADDR4(&gw, SLIP_GW_ADDR0, SLIP_GW_ADDR1, SLIP_GW_ADDR2, SLIP_GW_ADDR3);
 #endif /* LWIP_DHCP */
   struct netif* __netif = netif_add(&slipnetif, &ipaddr, &netmask, &gw, NULL, &slipif_init, &tcpip_input);
   if(__netif != NULL)
   {
 	  /* Registers the default network interface */
-//	  netif_set_default(&slipnetif);
 	  netif_set_up(&slipnetif);
 	  netif_set_link_up(&slipnetif);
   }

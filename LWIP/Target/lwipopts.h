@@ -148,6 +148,49 @@ extern int _LWIP_DESCRIPTORS_START_;
 #undef __LWIP_POOL_AND_HEAP_START__
 #define __LWIP_POOL_AND_HEAP_START__ (uint32_t)&_LWIP_RX_POOL_AND_HEAP_START_
 
+
+/* UDP local connection port */
+#define UDP_SERVER_PORT    7
+/* UDP remote connection port */
+#define UDP_CLIENT_PORT    7
+
+
+/*Static IP ADDRESS*/
+#define SLIP_IP_ADDR0   ((uint8_t)192U)
+#define SLIP_IP_ADDR1   ((uint8_t)168U)
+#define SLIP_IP_ADDR2   ((uint8_t)70U)
+#define SLIP_IP_ADDR3   ((uint8_t)10U)
+
+/*NETMASK*/
+#define SLIP_NETMASK_ADDR0   ((uint8_t)255U)
+#define SLIP_NETMASK_ADDR1   ((uint8_t)255U)
+#define SLIP_NETMASK_ADDR2   ((uint8_t)255U)
+#define SLIP_NETMASK_ADDR3   ((uint8_t)0U)
+
+/*Gateway Address*/
+#define SLIP_GW_ADDR0   ((uint8_t)192U)
+#define SLIP_GW_ADDR1   ((uint8_t)168U)
+#define SLIP_GW_ADDR2   ((uint8_t)70U)
+#define SLIP_GW_ADDR3   ((uint8_t)1U)
+
+ /*Static IP ADDRESS*/
+#define ETH_IP_ADDR0 ((uint8_t)192U)
+#define ETH_IP_ADDR1 ((uint8_t)168U)
+#define ETH_IP_ADDR2 ((uint8_t)69U)
+#define ETH_IP_ADDR3 ((uint8_t)10U)
+
+ /*NETMASK*/
+#define ETH_NETMASK_ADDR0 ((uint8_t)255U)
+#define ETH_NETMASK_ADDR1 ((uint8_t)255U)
+#define ETH_NETMASK_ADDR2 ((uint8_t)255U)
+#define ETH_NETMASK_ADDR3 ((uint8_t)0U)
+
+ /*Gateway Address*/
+#define ETH_GW_ADDR0 ((uint8_t)192U)
+#define ETH_GW_ADDR1 ((uint8_t)168U)
+#define ETH_GW_ADDR2 ((uint8_t)69U)
+#define ETH_GW_ADDR3 ((uint8_t)1U)
+
 /* USER CODE END 1 */
 
 #ifdef __cplusplus
